@@ -67,5 +67,5 @@ jobs:
 
     - name: Run Ansible Playbooks
       run: |
-        ansible-playbook -i inventory.ini ansiblebastion.yml
+        ansible-playbook -i inventory.ini ansible/bastion.yml
         ansible-playbook -i inventory.ini ansible/resource.yml
