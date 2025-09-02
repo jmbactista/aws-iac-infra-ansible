@@ -9,7 +9,7 @@ resource "aws_key_pair" "bastion_key" {
 }
 
 resource "aws_instance" "bastion" {
-  ami           = "ami-0b3e5e8d5d8bcd15d" 
+  ami           = "ami-0933f1385008d33c4" 
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public_subnet.id
   key_name      = aws_key_pair.bastion_key.key_name
@@ -21,7 +21,7 @@ resource "aws_instance" "bastion" {
 }
 
 resource "aws_instance" "resource_server" {
-  ami           = "ami-0b3e5e8d5d8bcd15d"
+  ami           = "ami-0933f1385008d33c4"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.private_subnet.id
   key_name      = aws_key_pair.bastion_key.key_name
