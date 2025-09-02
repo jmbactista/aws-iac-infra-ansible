@@ -61,7 +61,7 @@ jobs:
         echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
       env:
-        PRIVATE_KEY: ${{ secrets.BASTION_PRIVATE_KEY }}
+        PRIVATE_KEY: ${{ secrets.BASTION_PRIVATE_KEY }}   
 
     - name: Install Ansible dependencies
       run: |
