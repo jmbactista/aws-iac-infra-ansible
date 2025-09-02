@@ -1,0 +1,20 @@
+---
+- name: Configure Resource Server
+  hosts: private
+  become: true
+  tasks:
+    - name: Update packages
+      ansible.builtin.yum:
+        name: "*"
+        state: latest
+
+    - name: Install Nginx
+      ansible.builtin.yum:
+        name: nginx
+        state: present
+
+    - name: Ensure Nginx is running
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
