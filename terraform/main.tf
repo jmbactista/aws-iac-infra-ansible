@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "terraform_state" {
 
 terraform {
   backend "s3" {
-    bucket = aws_s3_bucket.terraform_state.bucket
+    bucket = "s3-bucket-tfstate-test"
     key    = "terraform.tfstate"
     region = "ap-southeast-1" 
     encrypt = true
