@@ -65,10 +65,6 @@ jobs:
       env:
         PRIVATE_KEY: ${{ secrets.BASTION_PRIVATE_KEY }}
 
-    - name: Install Ansible dependencies
-      run: |
-        ansible-galaxy install -r requirements.yml  # If you have additional roles
-
     - name: Run Ansible Playbooks
       run: |
         ansible-playbook -i inventory.ini bastion.yml
