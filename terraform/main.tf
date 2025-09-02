@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "s3-bucket-tfstate"
+  bucket = "s3s3-bucket-tfstate-test"
   acl    = "private"
 
   versioning {
