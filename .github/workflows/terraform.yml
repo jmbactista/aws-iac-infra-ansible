@@ -21,10 +21,13 @@ jobs:
         aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Initialize Terraform
+    - name: Terraform init
       run: terraform init
 
-    - name: Apply Terraform configuration
+    - name: Terraform Plan
+      run: terraform plan
+      
+    - name: Terraform Apply
       run: terraform apply -auto-approve
 
     - name: Export Terraform outputs to environment variables
@@ -33,27 +36,27 @@ jobs:
         echo "BASTION_IP=$(terraform output -raw bastion_public_ip)" >> $GITHUB_ENV
         echo "RESOURCE_SERVER_IP=$(terraform output -raw resource_server_private_ip)" >> $GITHUB_ENV
 
-  ansible:
-    runs-on: ubuntu-latest
-    needs: terraform
+  # ansible:
+  #   runs-on: ubuntu-latest
+  #   needs: terraform
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v2
 
-    - name: Install Ansible
-      run: sudo apt-get update && sudo apt-get install -y ansible
+  #   - name: Install Ansible
+  #     run: sudo apt-get update && sudo apt-get install -y ansible
 
-    - name: Setup SSH keys for Bastion Host
-      run: |
-        mkdir -p ~/.ssh
-        echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-      env:
-        PRIVATE_KEY: ${{ secrets.BASTION_PRIVATE_KEY }}
+  #   - name: Setup SSH keys for Bastion Host
+  #     run: |
+  #       mkdir -p ~/.ssh
+  #       echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
+  #       chmod 600 ~/.ssh/id_rsa
+  #     env:
+  #       PRIVATE_KEY: ${{ secrets.BASTION_PRIVATE_KEY }}
 
-    # - name: Install Ansible dependencies
-    #   run: |
-    #     ansible-galaxy install -r requirements.yml  # If you have additional roles
-    #     ansible-playbook -i inventory.ini bastion.yml
-    #     ansible-playbook -i inventory.ini resource_server.yml
+  #   - name: Install Ansible dependencies
+  #     run: |
+  #       ansible-galaxy install -r requirements.yml  # If you have additional roles
+  #       ansible-playbook -i inventory.ini bastion.yml
+  #       ansible-playbook -i inventory.ini resource_server.yml
