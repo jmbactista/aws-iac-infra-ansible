@@ -30,7 +30,7 @@ jobs:
       run: terraform plan
       
     - name: Terraform Apply
-      working-directory: infra
+      working-directory: terraform
       run: terraform apply -auto-approve
 
     # - name: Export Terraform outputs to environment variables
