@@ -29,15 +29,15 @@ jobs:
       working-directory: terraform
       run: terraform plan
       
-    # - name: Terraform Apply
-    #   working-directory: infra
-    #   run: terraform apply -auto-approve
+    - name: Terraform Apply
+      working-directory: infra
+      run: terraform apply -auto-approve
 
-    - name: Export Terraform outputs to environment variables
-      id: outputs
-      run: |
-        echo "BASTION_IP=$(terraform output -raw bastion_public_ip)" >> $GITHUB_ENV
-        echo "RESOURCE_SERVER_IP=$(terraform output -raw resource_server_private_ip)" >> $GITHUB_ENV
+    # - name: Export Terraform outputs to environment variables
+    #   id: outputs
+    #   run: |
+    #     echo "BASTION_IP=$(terraform output -raw bastion_public_ip)" >> $GITHUB_ENV
+    #     echo "RESOURCE_SERVER_IP=$(terraform output -raw resource_server_private_ip)" >> $GITHUB_ENV
 
   # ansible:
   #   runs-on: ubuntu-latest
