@@ -57,13 +57,16 @@ jobs:
     - name: Setup SSH keys for Bastion Host
       run: |
         mkdir -p ~/.ssh
-        echo "$PRIVATE_KEY" > ~/.ssh/id_rsa
+        echo "${PRIVATE_KEY}" | tr -d '\r' > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
       env:
-        PRIVATE_KEY: ${{ secrets.BASTION_PRIVATE_KEY }}   
+        PRIVATE_KEY: ${{ secrets.BASTION_PRIVATE_KEY }}
 
     - name: Install Ansible dependencies
       run: |
         ansible-galaxy install -r requirements.yml  # If you have additional roles
+
+    - name: Run Ansible Playbooks
+      run: |
         ansible-playbook -i inventory.ini bastion.yml
         ansible-playbook -i inventory.ini resource_server.yml
