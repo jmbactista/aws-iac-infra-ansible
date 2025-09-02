@@ -27,11 +27,11 @@ jobs:
     - name: Apply Terraform configuration
       run: terraform apply -auto-approve
 
-    # - name: Export Terraform outputs to environment variables
-    #   id: outputs
-    #   run: |
-    #     echo "BASTION_IP=$(terraform output -raw bastion_public_ip)" >> $GITHUB_ENV
-    #     echo "RESOURCE_SERVER_IP=$(terraform output -raw resource_server_private_ip)" >> $GITHUB_ENV
+    - name: Export Terraform outputs to environment variables
+      id: outputs
+      run: |
+        echo "BASTION_IP=$(terraform output -raw bastion_public_ip)" >> $GITHUB_ENV
+        echo "RESOURCE_SERVER_IP=$(terraform output -raw resource_server_private_ip)" >> $GITHUB_ENV
 
   ansible:
     runs-on: ubuntu-latest
@@ -52,8 +52,8 @@ jobs:
       env:
         PRIVATE_KEY: ${{ secrets.BASTION_PRIVATE_KEY }}
 
-    - name: Install Ansible dependencies
-      run: |
-        ansible-galaxy install -r requirements.yml  # If you have additional roles
-        ansible-playbook -i inventory.ini bastion.yml
-        ansible-playbook -i inventory.ini resource_server.yml
+    # - name: Install Ansible dependencies
+    #   run: |
+    #     ansible-galaxy install -r requirements.yml  # If you have additional roles
+    #     ansible-playbook -i inventory.ini bastion.yml
+    #     ansible-playbook -i inventory.ini resource_server.yml
