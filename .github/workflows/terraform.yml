@@ -22,13 +22,16 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Terraform init
+      working-directory: infra
       run: terraform init
 
     - name: Terraform Plan
+      working-directory: infra
       run: terraform plan
       
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
+    # - name: Terraform Apply
+    #   working-directory: infra
+    #   run: terraform apply -auto-approve
 
     - name: Export Terraform outputs to environment variables
       id: outputs
