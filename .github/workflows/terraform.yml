@@ -40,8 +40,11 @@ jobs:
 
     - name: Create env
       run: |
-        echo "BASTION_IP=$(terraform output -raw bastion_public_ip)" >> $GITHUB_ENV
-        echo "RESOURCE_SERVER_IP=$(terraform output -raw resource_server_private_ip)" >> $GITHUB_ENV
+        BASTION_IP=$(terraform output -raw bastion_public_ip | tr -d '\r\n')
+        RESOURCE_SERVER_IP=$(terraform output -raw resource_server_private_ip | tr -d '\r\n')
+    
+        echo "BASTION_IP=$BASTION_IP" >> $GITHUB_ENV
+        echo "RESOURCE_SERVER_IP=$RESOURCE_SERVER_IP" >> $GITHUB_ENV
 
   ansible:
     runs-on: ubuntu-latest
