@@ -3,18 +3,18 @@ provider "aws" {
   region = "ap-southeast-1"
 }
 
-resource "aws_s3_bucket" "terraform_state" {
-  bucket = "s3s3-bucket-tfstate-test"
-  acl    = "private"
+#resource "aws_s3_bucket" "terraform_state" {
+#  bucket = "s3s3-bucket-tfstate-test"
+#  acl    = "private"
 
-  versioning {
-    enabled = true
-  }
+#  versioning {
+#    enabled = true
+#  }
 
-  tags = {
-    Name = "Terraform State"
-  }
-}
+#  tags = {
+#    Name = "Terraform State"
+#  }
+#}
 
 terraform {
   backend "s3" {
