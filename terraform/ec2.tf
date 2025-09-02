@@ -13,7 +13,7 @@ resource "aws_instance" "bastion" {
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public_subnet.id
   #key_name      = aws_key_pair.bastion_key.key_name
-  key_name      = "jm-windows-kp"
+  key_name      = "tf-ansible-kp"
   #security_groups = [aws_security_group.bastion_sg.name]
   vpc_security_group_ids = [aws_security_group.bastion_sg.id]
 
@@ -26,7 +26,8 @@ resource "aws_instance" "resource_server" {
   ami           = "ami-0933f1385008d33c4"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.private_subnet.id
-  key_name      = aws_key_pair.bastion_key.key_name
+  #key_name      = aws_key_pair.bastion_key.key_name
+  key_name      = "tf-ansible-kp"
   #security_groups = [aws_security_group.resource_sg.name]
   vpc_security_group_ids = [aws_security_group.resource_sg.id]
 
